@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Flashcard Quiz Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f4f8;
+        }
+        .question {
+            font-size: 24px;
+            margin: 20px;
+        }
+        .answers button {
+            font-size: 18px;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .answers button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Flashcard Quiz Game</h1>
+    <div id="quiz-container">
+        <div class="question" id="question"></div>
+        <div class="answers" id="answers"></div>
+        <p id="question-number">Question 1</p>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is the derivative of sin(x)?",
+                answers: ["cos(x)", "sin(x)", "-cos(x)", "x*cos(x)"],
+                correct: 0
+            },
+            {
+                question: "What is the value of pi?",
+                answers: ["3.14", "3.141", "3.1415", "3.142"],
+                correct: 2
+            },
+            {
+                question: "What is 2^3?",
+                answers: ["6", "8", "10", "16"],
+                correct: 1
+            },
+            {
+                question: "Who is the father of modern physics?",
+                answers: ["Isaac Newton", "Albert Einstein", "Nikola Tesla", "Galileo Galilei"],
+                correct: 1
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const question = questions[currentQuestionIndex];
+            document.getElementById("question").textContent = question.question;
+            const answersContainer = document.getElementById("answers");
+            answersContainer.innerHTML = ''; // Clear previous answers
+
+            question.answers.forEach((answer, index) => {
+                const button = document.createElement("button");
+                button.textContent = answer;
+                button.onclick = () => checkAnswer(index);
+                answersContainer.appendChild(button);
+            });
+
+            document.getElementById("question-number").textContent = "Question " + (currentQuestionIndex + 1);
+        }
+
+        function checkAnswer(answerIndex) {
+            if (answerIndex === questions[currentQuestionIndex].correct) {
+                score++;
+            }
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                window.location.href = 'result.html?score=' + score; // Navigate to result page
+            }
+        }
+
+        loadQuestion();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result - Flashcard Quiz Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f4f8;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            font-size: 18px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Flashcard Quiz Game - Results</h1>
+    <div id="result-container">
+        Loading...
+    </div>
+    <button onclick="restartQuiz()">Restart Quiz</button>
+
+    <script>
+        function getQueryParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return {
+                score: urlParams.get('score')
+            };
+        }
+
+        function showResult() {
+            const { score } = getQueryParams();
+            const totalQuestions = 4; // Total number of questions
+            document.getElementById("result-container").textContent = `You scored ${score} out of ${totalQuestions}!`;
+        }
+
+        function restartQuiz() {
+            window.location.href = 'index.html'; // Navigate back to home page
+        }
+
+        showResult();
+    </script>
+
+</body>
+</html>
